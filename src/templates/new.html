@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ block.super }}About{% endblock %}
+
+{% block navbar-left %}
+  {% include "_navbar.html" with active_link="new" %}
+{% endblock %}
+
+{% block extrahead %}
+    <link href="{% static 'bootstrap-tagsinput/css/bootstrap-tagsinput.css' %}" rel="stylesheet" />
+{% endblock %}
+
+<!-- Benefits of the Django application -->
+{% block container %}
+
+<div id="sec2" class="text-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h2>How will you change the world today?</h2>
+                <p class="lead">:)</p>
+            </div>
+        </div>
+
+        <form class="form" role="form" action="{% url 'new_success' %}"
+            method="post">
+            {% csrf_token %}
+            <div class="row">
+
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="titleInput">
+                            <h2>Title</h2>
+                        </label>
+                        <input class="form-control" name="title" id="titleInput" placeholder="Sum up your idea for us, briefly" type="text">
+
+                        <label for="descrInput">
+                            <h2>Description</h2>
+                        </label>
+                        <textarea class="form-control" name="description" id="descrInput" rows="3" placeholder="Describe your idea to us"></textarea>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <label for="descrInput">
+                        <h2>Tags</h2>
+                    </label>
+                    <input id="tagsInput" name="tags" data-role="tagsinput">
+                </div>
+            </div>
+
+
+            <div class="row">
+                <button type="button submit" class="btn btn-default">
+                    Share your idea!
+                </button>
+            </div>
+        </form>
+
+
+
+    </div>
+</div>
+</div>
+
+{% endblock container %}
+
+{% block scripts %}
+    <script src="{% static 'bootstrap-tagsinput/js/bootstrap-tagsinput.min.js' %}"></script>
+
+    <script type="text/javascript">
+        /* http://timschlechter.github.io/bootstrap-tagsinput/examples/ */
+        $('input').tagsinput({
+            typeahead: {
+                source: ['Amsterdam', 'Washington', 'Sydney', 'Beijing', 'Cairo']
+            }
+        });
+
+
+    </script>
+{% endblock scripts %}
