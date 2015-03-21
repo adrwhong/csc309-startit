@@ -3,7 +3,7 @@
 
 {% load crispy_forms_tags %}
 
-{% block title %}{{ block.super }} TITLE OF IDEA HERE{% endblock %}
+{% block title %}{{ block.super }} {{ object.title }}{% endblock %}
 
 {% block extrahead %}
 {% endblock extrahead %}
@@ -18,76 +18,71 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h2>Double Wall Glass with Built-In Timer</h2>
-                <p class="lead">coool!</p>
+                <h2>{{ object.title }}</h2>
             </div>
         </div>
 
-        <!-- Description -->
+        {# Description #}
         <div class="row">
             <div class="col-lg-12 column">
                 <div class="panel panel-default" id="desc-panel">
                     <div class="panel-heading">
                         <h2 class="panel-title">
                         <a class="accordion-toggle" data-toggle="collapse" href="#desc-contents">
-                          Description
+                            Description
                         </a>
                       </h2>
                     </div>
-
                     <div id="desc-contents" class="panel-collapse collapse in">
                         <div class="panel-body">
-                            blah blah blah
+                            {{ object.description }}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-
-        <!-- Keywords -->
+        {# Categories #}
         <div class="row">
             <div class="col-lg-12 column">
                 <div class="panel panel-default" id="amn-panel">
                     <div class="panel-heading">
                         <h2 class="panel-title">
-                        <a class="accordion-toggle" data-toggle="collapse" href="#amn-contents">
-                          Keywords
-                        </a>
+                            Categories
                       </h2>
                     </div>
-
                     <div id="amn-contents" class="panel-collapse collapse in">
-                        <div class="panel-body">Show all keywords here.</div>
+                        <div class="panel-body">{{ object.categories }}</div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="panel-footer">
-            <div class="row">
-                <div class="col-lg-12 column text-center">
-                    <button type="button" class="btn btn-default btn-lg">
-                        <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-                    </button>
-
-                    <button type="button" class="btn btn-default btn-lg">
-                        <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
-                    </button>
-
-                    <button type="button" class="btn btn-default btn-lg">
-                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                    </button>
-
-                    <button type="button" class="btn btn-default btn-lg">
-                        <span class="glyphicon glyphicon-random" aria-hidden="true"></span>
-                    </button>
-
-                    <button type="button" class="btn btn-default btn-lg">
-                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                    </button>
-
+        {# Tags #}
+        <div class="row">
+            <div class="col-lg-12 column">
+                <div class="panel panel-default" id="amn-panel">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">
+                          Tags
+                      </h2>
+                    </div>
+                    <div id="amn-contents" class="panel-collapse collapse in">
+                        <div class="panel-body">{{ object.tags }}</div>
+                    </div>
                 </div>
+            </div>
+        </div>
+
+        {# Buttons #}
+        <div class="row">
+            <div class="col-lg-12 column text-center">
+                <a type="button" class="btn btn-default" href="{% url 'ideas:detail' object.id|add:1 %}">
+                    <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                </a>
+                <a type="button" class="btn btn-default">
+                    <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+                </a>
             </div>
         </div>
     </div>
