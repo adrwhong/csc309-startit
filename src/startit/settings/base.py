@@ -44,6 +44,7 @@ INSTALLED_APPS = (
     'django_admin_bootstrapped',
     'crispy_forms',
     'easy_thumbnails',
+    'tastypie',
 
     'profiles',
     'accounts',

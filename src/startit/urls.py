@@ -2,10 +2,11 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+
+from . import views
+
 import profiles.urls
 import accounts.urls
-import ideas.urls
-from . import views
 
 urlpatterns = patterns(
     '',

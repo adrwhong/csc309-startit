@@ -8,6 +8,7 @@ from ideas.models import Idea, Category, VotedOn, HasCategory
 
 from .forms import NewIdeaForm
 
+
 class IdeasView(generic.ListView):
     model = Idea
     template_name = "ideas.html"
