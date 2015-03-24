@@ -22,6 +22,12 @@ class IdeaDetailView(generic.DetailView):
     model=Idea
     template_name = "detail.html"
 
+    def get_context_data(self, **kwargs):
+        context = super(IdeaDetailView, self).get_context_data(**kwargs)
+        context['now'] = timezone.now()
+        context['voted'] = "YES"
+        return context
+
 
 def new_idea(request):
     return render(request, 'new.html',
@@ -30,8 +36,6 @@ def new_idea(request):
 @login_required
 def new_success(request):
     if request.POST:
-        import pdb; pdb.set_trace()
-
         profile = Profile(user=request.user)
         title = request.POST["title"]
         desc = request.POST["description"]
@@ -62,7 +66,7 @@ def vote(request, pk):
     if not voted:
         voted = VotedOn(idea=idea, user=profile)
         voted.save()
-        return HttpResponse("Voted!")
+        return HttpResponse(True)
     else:
-        return HttpResponse("NOT Voted!")
+        return HttpResponse(False)
 

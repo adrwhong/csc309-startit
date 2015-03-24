@@ -52,9 +52,10 @@
                     <div class="panel-footer">
                         <div class="row">
                             <div class="col-lg-6 column">
-                                {{idea.tags}}
+                                Tags: {{idea.tags}}
                             </div>
                             <div class="col-lg-6 column text-right">
+                                Categories:
                                 {% for category in idea.hascategory_set.all %}
                                     {% with category=category.category %}
                                         {{category.name}},
