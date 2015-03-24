@@ -17,7 +17,8 @@ class NewIdeaForm(forms.Form):
 
     categories = forms.MultipleChoiceField(
         choices = (
-            (c.name.lower(), c.name) for c in Category.objects.all())
+            (c.name, c.name) for c in Category.objects.all()
+            )
         )
 
     tags = forms.CharField()
@@ -46,7 +47,7 @@ class IdeaLikeDislikeForm(forms.Form):
     # Uni-form
     helper = FormHelper()
     helper.form_class = 'form-horizontal'
-    helper.form_action = 'spaces:create_space_success'
+    helper.form_action = 'ideas:vote'
     helper.field_class = 'col-lg-12 column text-center'
     helper.layout = Layout(
         FormActions(

@@ -44,13 +44,24 @@
                     </div>
                     <div id="desc-contents" class="panel-collapse collapse in">
                         <div class="panel-body">
-                        {{ idea.description|safe|truncatewords:"50"|linebreaks }}
-                        <a href="{% url 'ideas:detail' idea.id %}">Read More</a>
-
+                            {{ idea.description|safe|truncatewords:"50"|linebreaks }}
+                            <a href="{% url 'ideas:detail' idea.id %}">Read More</a>
                         </div>
                     </div>
+
                     <div class="panel-footer">
-                        {{idea.tags}}
+                        <div class="row">
+                            <div class="col-lg-6 column">
+                                {{idea.tags}}
+                            </div>
+                            <div class="col-lg-6 column text-right">
+                                {% for category in idea.hascategory_set.all %}
+                                    {% with category=category.category %}
+                                        {{category.name}},
+                                    {% endwith %}
+                                {% endfor %}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
