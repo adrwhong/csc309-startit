@@ -1,15 +1,18 @@
 from django.contrib.auth.decorators import login_required
-from django.views import generic
-from django.shortcuts import get_object_or_404, HttpResponse, redirect, render
+from django.views.generic import ListView, DetailView
+from django.views.generic.edit import CreateView, UpdateView
+from django.shortcuts import get_object_or_404, HttpResponse, redirect
+
+from django.core.urlresolvers import reverse
 from django.utils import timezone
 
 from profiles.models import Profile
 from ideas.models import Idea, Category, VotedOn, HasCategory
 
-from .forms import NewIdeaForm
+from .forms import NewIdeaForm, EditIdeaForm
 
 
-class IdeasView(generic.ListView):
+class IdeasView(ListView):
     model = Idea
     template_name = "ideas.html"
 
@@ -19,20 +22,31 @@ class IdeasView(generic.ListView):
         return context
 
 
-class IdeaDetailView(generic.DetailView):
+class IdeaDetailView(DetailView):
     model=Idea
     template_name = "detail.html"
 
     def get_context_data(self, **kwargs):
         context = super(IdeaDetailView, self).get_context_data(**kwargs)
         context['now'] = timezone.now()
-        context['voted'] = "YES"
+
+        context['is_owner'] = super(IdeaDetailView, self).get_object().user == Profile(user=self.request.user)
+
         return context
 
 
 def new_idea(request):
     return render(request, 'new.html',
         {'form': NewIdeaForm()})
+
+class IdeaUpdateView(UpdateView):
+    model = Idea
+    template_name = "edit.html"
+    form_class = EditIdeaForm
+
+    def get_success_url(self):
+        pk = self.kwargs['pk']
+        return reverse('ideas:detail', kwargs={'pk': pk})
 
 @login_required
 def new_success(request):

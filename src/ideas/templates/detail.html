@@ -88,6 +88,12 @@
                 {#  href="{% url 'ideas:vote' object.id %}" #}
                     <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
                 </a>
+
+                {% if is_owner %}
+                <a id="edit" name="{{ object.id }}" type="button" class="btn btn-default" href="{% url 'ideas:edit' object.id %}">
+                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                </a>
+                {% endif %}
             </div>
         </div>
     </div>
