@@ -27,10 +27,22 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 text-center">
-                <h2>Search/Filter goes here</h2>
-                <p class="lead">The Wonderful People Behind the Site</p>
+                <p>
+                    <strong>Sort by: </strong> {% for sort_link in sort_link_list %}
+                    <span class="sort-link {{ sort_link.attrs }}">
+        <a class="btn btn-primary btn-small" href="{{ sort_link.path }}">
+                <span class="{{ sort_link.indicator }}">
+                        {{ sort_link.title }}
+                        {% if sort_link.indicator == 'sort-asc' %}▲{% endif %}
+                        {% if sort_link.indicator == 'sort-desc' %}▼{% endif %}
+                </span>
+                    </a>
+                    </span>
+                    {% endfor %}
+                </p>
             </div>
         </div>
+
         {% for idea in object_list %}
         <div class="row">
             <div class="col-lg-12 column">

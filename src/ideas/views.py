@@ -11,10 +11,17 @@ from ideas.models import Idea, Category, VotedOn, HasCategory
 
 from .forms import NewIdeaForm, EditIdeaForm
 
+from sortable_listview import SortableListView
 
-class IdeasView(ListView):
+
+class IdeasView(SortableListView):
     model = Idea
     template_name = "ideas.html"
+    allowed_sort_fields = {'title': {'default_direction': '',
+                                     'verbose_name': 'Title'},
+                           'create_date': {'default_direction': '-',
+                                           'verbose_name': 'Published On'}}
+    default_sort_field = 'create_date'
 
     def get_context_data(self, **kwargs):
         context = super(IdeasView, self).get_context_data(**kwargs)
@@ -34,7 +41,7 @@ class IdeaDetailView(DetailView):
 
         return context
 
-
+@login_required
 def new_idea(request):
     return render(request, 'new.html',
         {'form': NewIdeaForm()})
