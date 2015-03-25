@@ -11,8 +11,6 @@ class IdeaResource(ModelResource):
         #max_limit = k
 
     def build_filters(self, filters=None):
-
-        import pdb; pdb.set_trace();
         if filters is None:
             filters = {}
         orm_filters = super(IdeaResource, self).build_filters(filters)

@@ -18,6 +18,9 @@ urlpatterns = patterns(
     url(r'^new/$', views.new_idea, name='new'),
     url(r'^new/success/$', views.new_success, name='new_success'),
 
+    #stats
+    url(r'^stats/$', views.StatsPageView.as_view(), name='stats'),
+
     #idea filters
     url(r'^(tags|category)/([\w-]+)/$', views.IdeasView.as_view(), name='ideas_list'),
 

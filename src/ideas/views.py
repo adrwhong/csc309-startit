@@ -13,6 +13,9 @@ from .forms import NewIdeaForm, EditIdeaForm
 
 from sortable_listview import SortableListView
 
+class StatsPageView(TemplateView):
+    template_name = "stats.html"
+
 
 class IdeasView(SortableListView):
     model = Idea
