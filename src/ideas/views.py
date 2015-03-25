@@ -23,6 +23,20 @@ class IdeasView(SortableListView):
                                            'verbose_name': 'Published On'}}
     default_sort_field = 'create_date'
 
+    def get_queryset(self):
+        qs = super(SortableListView, self).get_queryset()
+        qs = qs.order_by(self.sort)
+
+        if len(self.args) == 2:
+            q = self.args[1]
+            if self.args[0] == 'tags':
+                return qs.filter(tags__contains=q)
+
+            elif self.args[0] == 'category':
+                return qs.filter(categories="gg")
+        else:
+            return qs.all()
+
     def get_context_data(self, **kwargs):
         context = super(IdeasView, self).get_context_data(**kwargs)
         context['now'] = timezone.now()
