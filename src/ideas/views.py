@@ -30,10 +30,10 @@ class IdeasView(SortableListView):
         if len(self.args) == 2:
             q = self.args[1]
             if self.args[0] == 'tags':
-                return qs.filter(tags__contains=q)
+                return qs.filter(tags__icontains=q)
 
             elif self.args[0] == 'category':
-                return qs.filter(categories="gg")
+                return qs.filter(hascategory__category__name__icontains=q)
         else:
             return qs.all()
 
