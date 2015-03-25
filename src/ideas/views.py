@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView
-from django.shortcuts import get_object_or_404, HttpResponse, redirect
+from django.shortcuts import get_object_or_404, HttpResponse, redirect, render
 
 from django.core.urlresolvers import reverse
 from django.utils import timezone
