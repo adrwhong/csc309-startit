@@ -92,6 +92,9 @@
                 <a id="edit" name="{{ object.id }}" type="button" class="btn btn-default" href="{% url 'ideas:edit' object.id %}">
                     <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                 </a>
+                <a id="delete" name="{{ object.id }}" type="button" class="btn btn-default" href="{% url 'ideas:delete' object.id %}">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </a>
                 {% endif %}
             </div>
         </div>

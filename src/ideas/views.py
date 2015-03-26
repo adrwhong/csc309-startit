@@ -3,7 +3,7 @@ from random import randint
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.views.generic import ListView, DetailView, TemplateView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.shortcuts import get_object_or_404, HttpResponse, redirect, render
 from django.utils import timezone
 
@@ -94,6 +94,10 @@ class IdeaDetailView(DetailView):
 def new_idea(request):
     return render(request, 'new.html',
         {'form': NewIdeaForm()})
+
+class IdeaDeleteView(DeleteView):
+    model = Idea
+    success_url = '/'
 
 class IdeaUpdateView(UpdateView):
     model = Idea

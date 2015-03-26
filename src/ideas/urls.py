@@ -17,6 +17,7 @@ urlpatterns = patterns(
     url(r'^(?P<pk>\d+)/view/$', login_required(views.IdeaDetailView.as_view()), name='detail'),
     url(r'^(?P<pk>\d+)/vote/$', login_required(views.vote), name='vote'),
     url(r'^(?P<pk>\d+)/edit/$', login_required(views.IdeaUpdateView.as_view()), name='edit'),
+    url(r'^(?P<pk>\d+)/delete/$', login_required(views.IdeaDeleteView.as_view()), name='delete'),
     url(r'^new/$', views.new_idea, name='new'),
     url(r'^new/success/$', login_required(views.new_success), name='new_success'),
 
