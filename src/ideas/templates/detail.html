@@ -82,6 +82,7 @@
         {# Buttons #}
         <div class="row">
             <div class="col-lg-12 column text-center">
+                <p id="voted"></p>
                 <a id="vote" name="{{ object.id }}" type="button" class="btn btn-default">
                 {#  href="{% url 'ideas:vote' object.id %}" #}
                     <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
@@ -110,9 +111,9 @@ $('#vote').click(function(){
                success: function(response) {
                     console.log(response);
                     if (response == "False") {
-                        alert('You already voted!');
+                        $("#voted").html("You have already voted!");
                     } else {
-                        alert("Voted!");
+                        $("#voted").html("Voted!");
                     }
                 },
                 error: function(rs, e) {
