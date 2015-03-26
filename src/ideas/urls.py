@@ -1,4 +1,6 @@
 from django.conf.urls import patterns, url, include
+from django.contrib.auth.decorators import login_required
+
 import profiles.urls
 import accounts.urls
 from . import views
@@ -12,11 +14,11 @@ urlpatterns = patterns(
     '',
     url(r'^$', views.IdeasView.as_view(), name='ideas_list'),
 
-    url(r'^(?P<pk>\d+)/view/$', views.IdeaDetailView.as_view(), name='detail'),
-    url(r'^(?P<pk>\d+)/vote/$', views.vote, name='vote'),
-    url(r'^(?P<pk>\d+)/edit/$', views.IdeaUpdateView.as_view(), name='edit'),
+    url(r'^(?P<pk>\d+)/view/$', login_required(views.IdeaDetailView.as_view()), name='detail'),
+    url(r'^(?P<pk>\d+)/vote/$', login_required(views.vote), name='vote'),
+    url(r'^(?P<pk>\d+)/edit/$', login_required(views.IdeaUpdateView.as_view()), name='edit'),
     url(r'^new/$', views.new_idea, name='new'),
-    url(r'^new/success/$', views.new_success, name='new_success'),
+    url(r'^new/success/$', login_required(views.new_success), name='new_success'),
 
     #stats
     url(r'^stats/$', views.StatsPageView.as_view(), name='stats'),
