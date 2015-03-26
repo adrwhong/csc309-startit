@@ -19,6 +19,9 @@ urlpatterns = patterns(
 
     #json stuff
     url(r'^categories/', views.get_categories_json, name="get_categories_json"),
+
+    #json stuff
+    url(r'^api-demo/', views.APIDemoPage.as_view(), name="api_demo"),
 )
 
 # User-uploaded files like profile pics need to be served in development

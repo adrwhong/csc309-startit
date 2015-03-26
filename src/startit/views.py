@@ -13,6 +13,11 @@ class HomePage(generic.TemplateView):
 class AboutPage(generic.TemplateView):
     template_name = "about.html"
 
+
+class APIDemoPage(generic.TemplateView):
+    template_name = "api-demo.html"
+
+
 def get_categories_json(request):
     categories = Category.objects.all()
     data = serializers.serialize('json', categories)

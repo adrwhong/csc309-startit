@@ -1,0 +1,254 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ block.super }}API Demo{% endblock %}
+
+{% block navbar-left %}
+{% include "_navbar.html" %}
+{% endblock %}
+
+{% block container %}
+<div id="sec1" class="text-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h1>API Demo</h1>
+                <p class="lead">...</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="sec2" class="text-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 column">
+                <div class="panel panel-default" id="desc-panel">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">
+                        <a class="accordion-toggle" data-toggle="collapse" href="#limit-desc-contents">
+                          Limit (with k = 5, sorted by most liked.)
+                        </a>
+                      </h2>
+                    </div>
+                    <div id="limit-desc-contents" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                        <pre id="limit1" class="prettyprint"></pre>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-lg-12 column">
+                                <pre class="prettyprint">
+$.get("http://localhost:8000/ideas/api/idea/?format=json&limit=5", function (data) {
+  $("#limit").html(JSON.stringify(eval(data), null, 2));
+});</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 column">
+                <div class="panel panel-default" id="desc-panel">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">
+                        <a class="accordion-toggle" data-toggle="collapse" href="#limit2-desc-contents">
+                          Limit (with k = 8, sorted by most liked.)
+                        </a>
+                      </h2>
+                    </div>
+                    <div id="limit2-desc-contents" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                        <pre id="limit2" class="prettyprint"></pre>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-lg-12 column">
+                                <pre class="prettyprint">$.get("http://localhost:8000/ideas/api/idea/?format=json&limit=8", function (data) {
+  $("#limit2").html(JSON.stringify(eval(data), null, 2));
+});</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 column">
+                <div class="panel panel-default" id="desc-panel">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">
+                        <a class="accordion-toggle" data-toggle="collapse" href="#start-desc-contents">
+                          Start date specified (with k = 5, sorted by most liked.)
+                        </a>
+                      </h2>
+                    </div>
+                    <div id="start-desc-contents" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <pre id="start" class="prettyprint"></pre>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-lg-12 column">
+                                <pre class="prettyprint">
+$.get("http://localhost:8000/ideas/api/idea/?format=json&limit=5&start=03-25-15", function (data) {
+  $("#start").html(JSON.stringify(eval(data), null, 2));
+});
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 column">
+                <div class="panel panel-default" id="desc-panel">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">
+                        <a class="accordion-toggle" data-toggle="collapse" href="#end-desc-contents">
+                          End date specified (with k = 5, sorted by most liked.)
+                        </a>
+                      </h2>
+                    </div>
+                    <div id="end-desc-contents" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <pre id="end" class="prettyprint"></pre>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-lg-12 column">
+                                <pre class="prettyprint">$.get("http://localhost:8000/ideas/api/idea/?format=json&limit=5&end=03-24-15", function (data) {
+  $("#end").html(JSON.stringify(eval(data), null, 2));
+});</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 column">
+                <div class="panel panel-default" id="desc-panel">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">
+                        <a class="accordion-toggle" data-toggle="collapse" href="#startend-desc-contents">
+                          Start and end date specified (with k = 5, sorted by most liked.)
+                        </a>
+                      </h2>
+                    </div>
+                    <div id="startend-desc-contents" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <pre id="startend" class="prettyprint"></pre>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-lg-12 column">
+                                <pre class="prettyprint">$.get("http://localhost:8000/ideas/api/idea/?format=json&limit=5&start=03-24-15&end=03-25-15", function (data) {
+  $("#startend").html(JSON.stringify(eval(data), null, 2));
+});</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 column">
+                <div class="panel panel-default" id="desc-panel">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">
+                        <a class="accordion-toggle" data-toggle="collapse" href="#startempty-desc-contents">
+                          Specifying dates where no ideas were made (with k = 5, sorted by most liked.)
+                        </a>
+                      </h2>
+                    </div>
+                    <div id="startempty-desc-contents" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <pre id="startempty" class="prettyprint"></pre>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-lg-12 column">
+                                <pre class="prettyprint">$.get("http://localhost:8000/ideas/api/idea/?format=json&limit=5&start=03-24-16", function (data) {
+  $("#startempty").html(JSON.stringify(eval(data), null, 2));
+});</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 column">
+                <div class="panel panel-default" id="desc-panel">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">
+                        <a class="accordion-toggle" data-toggle="collapse" href="#chart-desc-contents">
+                          Charts
+                        </a>
+                      </h2>
+                    </div>
+                    <div id="chart-desc-contents" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <pre id="chart" class="prettyprint">
+See below.
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-lg-12 column">
+                                <pre class="prettyprint">See http://localhost:8000/ideas/stats/
+and JSON data http://localhost:8000/ideas/stats/json</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock container %}
+
+{% block scripts %}
+<script type="text/javascript">
+    //Limit (with k = 5, sorted by most liked.)
+    $.get("http://localhost:8000/ideas/api/idea/?format=json&limit=5", function (data) {
+        $("#limit1").html(JSON.stringify(eval(data), null, 2));
+    });
+
+    //Limit (with k = 8, sorted by most liked.)
+    $.get("http://localhost:8000/ideas/api/idea/?format=json&limit=8", function (data) {
+        $("#limit2").html(JSON.stringify(eval(data), null, 2));
+    });
+
+    //Start date specified (with k = 5, sorted by most liked.)
+    $.get("http://localhost:8000/ideas/api/idea/?format=json&limit=5&start=03-25-15", function (data) {
+        $("#start").html(JSON.stringify(eval(data), null, 2));
+    });
+
+    //End date specified (with k = 5, sorted by most liked.)
+    $.get("http://localhost:8000/ideas/api/idea/?format=json&limit=5&end=03-25-15", function (data) {
+        $("#end").html(JSON.stringify(eval(data), null, 2));
+    });
+
+    //Start and date specified (with k = 5, sorted by most liked.)
+    $.get("http://localhost:8000/ideas/api/idea/?format=json&limit=5&start=03-24-15&end=03-25-15", function (data) {
+        $("#startend").html(JSON.stringify(eval(data), null, 2));
+    });
+
+    //Specifying dates where no ideas were made (with k = 5, sorted by most liked.)
+    $.get("http://localhost:8000/ideas/api/idea/?format=json&limit=5&start=03-24-16", function (data) {
+        $("#startempty").html(JSON.stringify(eval(data), null, 2));
+    });
+
+</script>
+{% endblock scripts %}
