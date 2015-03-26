@@ -1,17 +1,49 @@
+from random import randint
+
 from django.contrib.auth.decorators import login_required
-from django.views.generic import ListView, DetailView
+from django.core.urlresolvers import reverse
+from django.views.generic import ListView, DetailView, TemplateView
 from django.views.generic.edit import CreateView, UpdateView
 from django.shortcuts import get_object_or_404, HttpResponse, redirect, render
-
-from django.core.urlresolvers import reverse
 from django.utils import timezone
 
-from profiles.models import Profile
-from ideas.models import Idea, Category, VotedOn, HasCategory
+from sortable_listview import SortableListView
+
+from chartjs.views.lines import BaseLineChartView
 
 from .forms import NewIdeaForm, EditIdeaForm
+from ideas.models import Idea, Category, VotedOn, HasCategory
+from profiles.models import Profile
 
-from sortable_listview import SortableListView
+class LineChartJSONView(BaseLineChartView):
+    def get_labels(self):
+        """Return 7 labels."""
+        res = [row['name'] for row in Category.objects.values()]
+        res.sort()
+        return res
+
+    def get_data(self):
+        """Return 3 dataset to plot."""
+        categories = {r['id']: r['name'] for r in Category.objects.values()}
+
+        counts = {}
+        for r in HasCategory.objects.values():
+            name = categories[r['category_id']]
+            if name in counts:
+                counts[name] += 1
+            else:
+               counts[name] = 1
+
+
+        res = []
+        for label in self.get_labels():
+            if label in counts:
+                res.append(counts[label])
+            else:
+                res.append(0)
+
+        return [res]
+
 
 class StatsPageView(TemplateView):
     template_name = "stats.html"
@@ -108,4 +140,5 @@ def vote(request, pk):
         return HttpResponse(True)
     else:
         return HttpResponse(False)
+
 

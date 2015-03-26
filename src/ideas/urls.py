@@ -20,9 +20,12 @@ urlpatterns = patterns(
 
     #stats
     url(r'^stats/$', views.StatsPageView.as_view(), name='stats'),
+    url(r'^stats/json$', views.LineChartJSONView.as_view(), name='stats_json'),
 
     #idea filters
     url(r'^(tags|category)/([\w-]+)/$', views.IdeasView.as_view(), name='ideas_list'),
+
+
 
     url(r'^api/', include(idea_resource.urls)),
 

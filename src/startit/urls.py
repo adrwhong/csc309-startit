@@ -16,6 +16,9 @@ urlpatterns = patterns(
     url(r'^ideas/', include('ideas.urls', namespace='ideas')),
     url(r'^users/', include(profiles.urls, namespace='profiles')),
     url(r'^admin/', include(admin.site.urls)),
+
+    #json stuff
+    url(r'^categories/', views.get_categories_json, name="get_categories_json"),
 )
 
 # User-uploaded files like profile pics need to be served in development

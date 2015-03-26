@@ -46,6 +46,7 @@ INSTALLED_APPS = (
     'easy_thumbnails',
     'tastypie',
     'sortable_listview',
+    'chartjs',
 
     'profiles',
     'accounts',
