@@ -133,14 +133,35 @@ def new_success(request):
     #return render(HttpResponse("Success! %s" % categories)
 
 @login_required
-def vote(request, pk):
-    profile = Profile(user=request.user)
-    idea = Idea(pk=pk)
+def vote_up(request, pk):
+    profile = get_object_or_404(Profile, user=request.user)
+    idea = get_object_or_404(Idea, pk=pk)
+
     voted = VotedOn.objects.filter(idea=idea, user=profile).count() > 0
 
     if not voted:
-        voted = VotedOn(idea=idea, user=profile)
+        voted = VotedOn.objects.create(idea=idea, user=profile)
         voted.save()
+
+        idea.likes += 1
+        idea.save()
+
+        return HttpResponse(True)
+    else:
+        return HttpResponse(False)
+
+@login_required
+def vote_down(request, pk):
+    profile = get_object_or_404(Profile, user=request.user)
+    idea = get_object_or_404(Idea, pk=pk)
+    voted = VotedOn.objects.filter(idea=idea, user=profile).count() > 0
+
+    if voted:
+        idea.likes -= 1
+        idea.save()
+
+        voted = get_object_or_404(VotedOn, idea=idea, user=profile)
+        voted.delete()
         return HttpResponse(True)
     else:
         return HttpResponse(False)

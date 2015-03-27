@@ -83,9 +83,12 @@
         <div class="row">
             <div class="col-lg-12 column text-center">
                 <p id="voted"></p>
-                <a id="vote" name="{{ object.id }}" type="button" class="btn btn-default">
-                {#  href="{% url 'ideas:vote' object.id %}" #}
+                <a id="vote-up" name="{{ object.id }}" type="button" class="btn btn-default">
                     <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                </a>
+
+                <a id="vote-down" name="{{ object.id }}" type="button" class="btn btn-default">
+                    <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
                 </a>
 
                 {% if is_owner %}
@@ -101,14 +104,16 @@
     </div>
 </div>
 
-{% endblock container %} {% block scripts %}
+{% endblock container %}
+
+{% block scripts %}
 <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 
 <script>
-$('#vote').click(function(){
+$('#vote-up').click(function(){
       $.ajax({
                type: "POST",
-               url: "{% url 'ideas:vote' object.id %}",
+               url: "{% url 'ideas:vote_up' object.id %}",
                data: {'pk': $(this).attr('name'), 'csrfmiddlewaretoken': '{{csrf_token}}'},
                dataType: "text",
                success: function(response) {
@@ -123,6 +128,26 @@ $('#vote').click(function(){
                        alert(rs.responseText);
                 }
           });
-    })
+    });
+
+$('#vote-down').click(function(){
+      $.ajax({
+               type: "POST",
+               url: "{% url 'ideas:vote_down' object.id %}",
+               data: {'pk': $(this).attr('name'), 'csrfmiddlewaretoken': '{{csrf_token}}'},
+               dataType: "text",
+               success: function(response) {
+                    console.log(response);
+                    if (response == "False") {
+                        $("#voted").html("You haven't voted yet!");
+                    } else {
+                        $("#voted").html("Removed your vote!");
+                    }
+                },
+                error: function(rs, e) {
+                       alert(rs.responseText);
+                }
+          });
+    });
 </script>
 {% endblock scripts %}
